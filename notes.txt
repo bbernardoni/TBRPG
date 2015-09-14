@@ -1,0 +1,34 @@
+epx epy - enemy previous
+cx  cy  - char coordinate
+ex  ey  - enemy coordinate
+ca  ea  - attack
+cd  ed  - defense
+cs  es  - skill
+ce  ee  - experience
+cp  ep  - predictability
+cl  el  - luck
+ch  eh  - health
+cm  em  - max health
+csp esp - special points
+chlvl   - character level
+
+y=10*2^x+90+ran.nextInt(cl.get(0)/20)
+y=10*chlvl*chlvl+100+ran.nextInt(cl.get(0)/20)
+
+level up: ce increases at y= is 100,110,130,170,250,410,730...
+
+y=10*2^x+y+ran.nextInt(cl.get(0)/20)
+y=10*chlvl*chlvl+y+ran.nextInt(cl.get(0)/20)
+
+100,105,120,145,180,225,280,345,420,505
+
+y=2*2^x+5x+y+ran.nextInt(cl.get(0)/20)
+y=5*chlvl*chlvl+y+ran.nextInt(cl.get(0)/20)
+
+100,105,120,150,205,305,490,840,1515  5,5
+100,102,111,129,160,212,301,459,750   2,5
+100,105,117,141,187,275,445,777,1431  5,2
+100,102,108,120,142,182,256,396,666   2,2
+100,102,106,114,130,162,226,354,610   2,0
+
+y=y+2*chlvl+10+(cl.get(0)/20)

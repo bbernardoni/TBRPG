@@ -1,0 +1,153 @@
+	public void moveE(){
+    	vx.clear();
+    	vy.clear();
+    	vpx.clear();
+    	vpy.clear();
+    	vlen.clear();
+    	vdone.clear();
+    	vfx.clear();
+    	vfy.clear();
+    	int fx = ex;	int fy = ey;
+    	int px = ex;	int py = ey;
+    	int len = 0;
+    	while(!vx.isEmpty() || vdone.isEmpty()){
+    		if(cx==fx && cy==fy){
+    			vdone.add(len);
+    			vfx.add(ex);
+    			vfy.add(ey);
+    			fx = vx.remove(vx.size()-1);
+    			fy = vy.remove(vy.size()-1);
+    			px = vpx.remove(vpx.size()-1);
+    			py = vpy.remove(vpy.size()-1);
+    			len = vlen.remove(vlen.size()-1);
+    		}
+    		if(len == 1){
+    			ex = fx;
+    			ey = fy;
+    		}
+    		len++;
+    		switch(posE(fx, fy, px, py)){
+    		case 0://none
+    			fx = vx.remove(vx.size()-1);
+    			fy = vy.remove(vy.size()-1);
+    			px = vpx.remove(vpx.size()-1);
+    			py = vpy.remove(vpy.size()-1);
+    			len = vlen.remove(vlen.size()-1);
+    			break;
+    		case 10://left
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 11://up
+    			py = fy;
+    			px = fx;
+    			fy--;
+    			break;
+    		case 12://down
+    			py = fy;
+    			px = fx;
+    			fy++;
+    			break;
+    		case 14://right
+    			px = fx;
+    			py = fy;
+    			fx++;
+    			break;
+    		case 21://left up
+    			vectorAdd(fx, fy-1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 22://left down
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 24://left right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 23://up down
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			py = fy;
+    			px = fx;
+    			fy--;
+    			break;
+    		case 25://up right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			py = fy;
+    			px = fx;
+    			fy--;
+    			break;
+    		case 26://down right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			py = fy;
+    			px = fx;
+    			fy++;
+    			break;
+    		case 33://left up down
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			vectorAdd(fx, fy-1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 35://left up right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			vectorAdd(fx, fy-1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 36://left down right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		case 37://up down right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			py = fy;
+    			px = fx;
+    			fy--;
+    			break;
+    		case 47://left up down right
+    			vectorAdd(fx+1, fy, fx, fy, len);
+    			vectorAdd(fx, fy+1, fx, fy, len);
+    			vectorAdd(fx, fy-1, fx, fy, len);
+    			px = fx;
+    			py = fy;
+    			fx--;
+    			break;
+    		}
+    	}
+    	for(int i=0;vdone.indexOf(i-1)==-1;i++){
+    		if(vdone.indexOf(i)!=-1){
+    			fx = vfx.elementAt(vdone.indexOf(i));
+    			fy = vfy.elementAt(vdone.indexOf(i));
+    		}
+    	}
+    }
+    
+    public int posE(int fx, int fy, int px, int py){
+    	int c = 0;
+    	if(fx>0 && vl[fx-1][fy]==false && fx!=px+1){c+=10;}
+    	if(fy>0 && hl[fx][fy-1]==false && fy!=py+1){c+=11;}
+    	if(fy<14 && hl[fx][fy]==false && fy!=py-1){c+=12;}
+    	if(fx<25 && vl[fx][fy]==false && fx!=px-1){c+=14;}
+    	return c;
+    }
+    public void vectorAdd(int nx, int ny, int fx, int fy, int len){
+    	vx.add(nx);
+    	vy.add(ny);
+    	vpx.add(fx);
+    	vpy.add(fy);
+    	vlen.add(len);
+    }
